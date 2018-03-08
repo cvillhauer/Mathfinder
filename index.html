@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Mathfinder</title>
+    <!-- The style.css file allows you to change the look of your web pages.
+         If you include the next line in all your web pages, they will all share the same look.
+         This makes it easier to make new pages for your site. -->
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="mathfinder.js"></script>
+  </head>
+<body>
+
+<div class="container form-group" ng-app="myApp" ng-controller="mathfinder">
+
+<div class="row">
+<div class="col-xs-12">
+<h1>MathFinder</h1>
+<h3>A PathFinder Utility</h3>
+<h5>Brought to you by Courtney</h5>
+<hr>
+</div>
+</div>
+
+
+
+<div class="row">
+	<div class="col-xs-1" style="border: 1px solid #000000; padding: 5px; margin: 5px;">
+		Base Strength: <input class="form-control" type="number" ng-model="baseStr" />
+		Base Dexterity: <input class="form-control" type="number" ng-model="baseDex" />
+		Base Constitution: <input class="form-control" type="number" ng-model="baseCon" />
+		Base Intelligence: <input class="form-control" type="number" ng-model="baseInt" />
+		Base Wisdom: <input class="form-control" type="number" ng-model="baseWis" />
+		Base Charisma: <input class="form-control" type="number" ng-model="baseCha" />
+	</div>
+		<div class="col-xs-1" style="border: 1px solid #000000; padding: 5px; margin: 5px;">
+		Strength Modifiers: <input class="form-control" type="number" ng-model="modStr" />
+		Dexterity Modifiers: <input class="form-control" type="number" ng-model="modDex" />
+		Constitution Modifiers: <input class="form-control" type="number" ng-model="modCon" />
+		Intelligence Modifiers: <input class="form-control" type="number" ng-model="modInt" />
+		Wisdom Modifiers: <input class="form-control" type="number" ng-model="modWis" />
+		Charisma Modifiers: <input class="form-control" type="number" ng-model="modCha" />
+	</div>
+	<div class="col-xs-1" style="border: 1px solid #000000; padding: 5px; margin: 5px;">
+		Base Fortitude Save: <input class="form-control" type="number" ng-model="baseFort" />
+		Base Reflex Save: <input class="form-control" type="number" ng-model="baseRefl" />
+		Base Will Save: <input class="form-control" type="number" ng-model="baseWill" />
+	</div>
+	<div class="col-xs-1" style="border: 1px solid #000000; padding: 5px; margin: 5px;">
+		Fortitude Save Modifiers: <input class="form-control" type="number" ng-model="modFort" />
+		Reflex Save Modifiers: <input class="form-control" type="number" ng-model="modRefl" />
+		Will Save Modifiers: <input class="form-control" type="number" ng-model="modWill" />
+	</div>
+	<div class="col-xs-2" style="border: 1px solid #000000; padding: 5px; margin: 5px;">
+		Class Level: <input class="form-control" type="number" ng-model="level" />
+		Base HitPoints: <input class="form-control" type="number" ng-model="baseHP" />
+		Base AC: <input class="form-control" type="number" ng-model="baseAC" />
+		Base Attack Bonus 1: <input class="form-control" type="number" ng-model="baseAttack1" />
+		Base Attack Bonus 2: <input class="form-control" type="number" ng-model="baseAttack2" />
+		<br>
+		Bonus Attack from Feats: <input class="form-control" type="number" ng-model="featAttack" />
+		Bonus Damage from Feats: <input class="form-control" type="number" ng-model="featDamage" />
+		Weapon Name: <input class="form-control" type="text" ng-model="weaponName" />
+		Weapon Attack: <input class="form-control" type="number" ng-model="weaponAttack" />
+		Weapon Hit Dice: <input class="form-control" type="text" ng-model="weaponHitDice" />
+		Weapon Damage Bonus: <input class="form-control" type="number" ng-model="weaponDamage" />
+		<div class="checkbox">
+			<label><input type="checkbox" ng-model="weaponIsTwoHanded" />Two-Handed Weapon</label>
+		</div>
+	</div>
+	<div class="col-xs-2 checkbox" style="border: 1px solid #000000; padding: 5px; margin: 5px;">
+		<label><input type="checkbox" ng-model="powerAttack">Power Attack</label><br />
+		<label><input type="checkbox" ng-model="haste">Haste</label><br />
+		<label><input type="checkbox" ng-model="rage">Rage</label><br />
+		<label><input type="checkbox" ng-model="fatigued">Fatigued</label><br />
+		<label><input type="checkbox" ng-model="bless">Bless</label><br />
+		<!-- <label><input type="checkbox" ng-model="bardSong">Bard Song</label><br /> -->
+	</div>
+</div>
+<hr>
+<div class="row">
+	<div class="col-xs-12">
+		Current Strength: {{strength()}} &nbsp; ({{displayModifier(strength())}}) <br />
+		Current Dexterity: {{dexterity()}} &nbsp; ({{displayModifier(dexterity())}}) <br />
+		Current Constitution: {{constitution()}} &nbsp; ({{displayModifier(constitution())}}) <br />
+		Current Intelligence: {{intelligence()}} &nbsp; ({{displayModifier(intelligence())}}) <br />
+		Current Wisdom: {{wisdom()}} &nbsp; ({{displayModifier(wisdom())}}) <br />
+		Current Charisma: {{charisma()}} &nbsp; ({{displayModifier(charisma())}}) <br />
+		<br>
+		Current Fortitude Save: {{fortitude()}} <br />
+		Current Reflex Save: {{reflex()}} <br />
+		Current Will Save: {{will()}} <br />
+		<br>
+		Current Hit Points: {{calculateHitPoints()}} <br />
+		Current AC: {{calculateAC()}}<br />
+		<br>
+		Your first attack with {{weaponName}} has an attack bonus of {{calculateWeaponAttack(baseAttack1)}} and does {{weaponHitDice}} + {{calculateWeaponDamage(baseAttack1)}} damage. <br />
+		Your second attack with {{weaponName}} has an attack bonus of {{calculateWeaponAttack(baseAttack2)}} and does {{weaponHitDice}} + {{calculateWeaponDamage(baseAttack2)}} damage. <br />
+	</div>
+</div>
+
+</div>
+
+</body>
+</html>
